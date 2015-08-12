@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var models = require('../models/');
-var Page = models.Page; 
-var User = models.User; 
+var Page = models.Page;
+var User = models.User;
 
 /* GET users listing. */
 // router.get('/', function(req, res, next) {
@@ -16,7 +16,8 @@ router.get('/', function(req, res, next){
 
 router.post('/', function(req,res,next){
  var title = req.body.title;
- var content = req.body.content;  var page = new Page({
+ var content = req.body.content;
+ var page = new Page({
    title: title,
    content: content
    // urlTitle: urlTitleGen(title)
@@ -27,7 +28,7 @@ router.post('/', function(req,res,next){
    .then(null, function (err){
      console.error(err);
    });
-}); 
+});
 
 // router.post('/', function(req, res, next){
 // 	console.log(req.body);
@@ -46,7 +47,7 @@ router.post('/', function(req,res,next){
 // 	  	console.log(savedPage.route);
 //   		res.redirect(savedPage.route); // route virtual FTW
 // }).then(null, next);
-	  
+
 // });
 
 
@@ -67,7 +68,7 @@ router.get('/:urlTitle', function(req, res, next){
 module.exports = router;
 
 
-// res.render( 'addpage', { 
+// res.render( 'addpage', {
 // 		authorName: Page.author,
 // 		authorEmail: User.email,
 // 		content: Page.content
@@ -83,7 +84,7 @@ function generateUrl(str){
 	} else {
 		return Math.random().toString(36).substring(2, 7);
 	}
-	
+
 };
 
 generateUrl("HI PEOPLE")

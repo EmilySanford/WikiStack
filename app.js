@@ -9,6 +9,7 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var wikiRouter = require('./routes/wiki.js');
 var users = require('./routes/users');
+require('./filters')(swig);
 
 var app = express();
 

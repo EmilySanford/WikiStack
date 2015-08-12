@@ -16,16 +16,18 @@ var pageSchema = new mongoose.Schema({
 });
 
 var userSchema = new mongoose.Schema({
-  name: {first: {type: String, required: true}, last: {type: String, required: true}},
+  name: {type: String, required: true},
   email: {type: String, required: true, unique: true}
 });
 
-
-
-
-
-
 pageSchema.pre("validate", function (next){
+
+  // if(findOrCreate returns 'find') {
+  //   add the _id to the new page created
+  // } else {
+  //   create a new page and add the new author _id to this page
+  // }
+
 	this.urlTitle = generateUrl(this.title)
 	next();
 });
@@ -36,7 +38,7 @@ function generateUrl(str){
 	} else {
 		return Math.random().toString(36).substring(2, 7);
 	}
-	
+
 }
 
 pageSchema.virtual('route').get(function(){
