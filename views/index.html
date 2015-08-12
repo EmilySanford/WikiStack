@@ -8,6 +8,8 @@
   <ul>
     {% for page in pages %}
       <li>{{ page | pageLink }}</li>
+      <!-- <li>{{ page.author }}</li> -->
+
     {% endfor %}
   </ul>
   {% else %}

@@ -20,14 +20,18 @@ var userSchema = new mongoose.Schema({
   email: {type: String, required: true, unique: true}
 });
 
+userSchema.statics.findOrCreate = function (props) {
+  var self = this;
+  return self.findOne({email: props.email}).exec().then(function(user){
+    if (user) return user;
+    else return self.create({
+      email: props.email,
+      name:  props.name
+    });
+  });
+};
+
 pageSchema.pre("validate", function (next){
-
-  // if(findOrCreate returns 'find') {
-  //   add the _id to the new page created
-  // } else {
-  //   create a new page and add the new author _id to this page
-  // }
-
 	this.urlTitle = generateUrl(this.title)
 	next();
 });

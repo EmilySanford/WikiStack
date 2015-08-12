@@ -21,13 +21,13 @@ router.post('/', function(req,res,next){
    title: title,
    content: content
    // urlTitle: urlTitleGen(title)
- });  page.save()
-   .then(function(page){
+ });
+ User.findOrCreate(req.body).then(function(user) {
+	 page.author = user._id;
+	 return page.save()
+ }).then(function(page){
      res.redirect(page.route);
-   })
-   .then(null, function (err){
-     console.error(err);
-   });
+   }).catch(next);
 });
 
 // router.post('/', function(req, res, next){
