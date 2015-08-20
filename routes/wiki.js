@@ -3,6 +3,19 @@ var router = express.Router();
 var models = require('../models/');
 var Page = models.Page;
 var User = models.User;
+var mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
+
+
+
+/* GET users listing. */
+// router.get('/', function(req, res, next) {
+//   User.find({}).exec().then(function(users) {
+//     console.log(userList);
+//     res.render('user', {users: users});
+//   }).catch(next);
+//   //res.send('respond with a resource');
+// });
 
 /* GET users listing. */
 // router.get('/', function(req, res, next) {
@@ -24,9 +37,9 @@ router.post('/', function(req,res,next){
  });
  User.findOrCreate(req.body).then(function(user) {
 	 page.author = user._id;
-	 return page.save()
- }).then(function(page){
-     res.redirect(page.route);
+	 return page.save();
+ }).then(function(savedPage){
+     res.redirect(savedPage.route);
    }).catch(next);
 });
 
@@ -59,8 +72,8 @@ router.get('/add', function(req, res, next){
 
 router.get('/:urlTitle', function(req, res, next){
 	//console.log(req.params)
-	Page.findOne({ urlTitle: req.params.urlTitle}).exec().then(function(foundPage){
-		res.render('wikipage', foundPage);
+	Page.findOne({ urlTitle: req.params.urlTitle}).populate('author').exec().then(function(foundPage){
+		res.render('wikipage', { page: foundPage, author: foundPage.author });
 	}).catch(next);
 	//res.send('hit dynamic route at ' + req.params.urlTitle);
 })

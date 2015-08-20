@@ -1,15 +1,18 @@
 var express = require('express');
 var swig = require('swig');
+require('./filters')(swig);
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+require('./models');
+
 var routes = require('./routes/index');
 var wikiRouter = require('./routes/wiki.js');
 var users = require('./routes/users');
-require('./filters')(swig);
+
 
 var app = express();
 

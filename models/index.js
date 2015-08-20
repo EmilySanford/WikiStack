@@ -32,7 +32,7 @@ userSchema.statics.findOrCreate = function (props) {
 };
 
 pageSchema.pre("validate", function (next){
-	this.urlTitle = generateUrl(this.title)
+	this.urlTitle = generateUrl(this.title);
 	next();
 });
 
